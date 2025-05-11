@@ -1,7 +1,7 @@
 {
-  "name": "utctolocaltimezone",
+  "name": "utc-to-local-timezone",
   "version": "1.0.0",
-  "description": "utcToLocalTimezone is a lightweight, zero-dependency JavaScript utility that converts UTC date/time strings to local time for any IANA timezone. It uses native Date and Intl.DateTimeFormat APIs for customizable, efficient time formatting without external libraries.",
+  "description": "utc-to-local-timezone is a lightweight, zero-dependency JavaScript utility that converts UTC date/time strings to local time for any IANA timezone. It uses native Date and Intl.DateTimeFormat APIs for customizable, efficient time formatting without external libraries.",
   "main": "index.js",
   "type": "commonjs",
   "scripts": {
@@ -16,6 +16,7 @@
     "timezone",
     "date-formatting",
     "intl",
+    "utc-to-local-timezone",
     "utcToLocalTimezone",
     "javascript"
   ],
