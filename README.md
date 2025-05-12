@@ -1,92 +1,131 @@
-# `utc-to-local-timezone` 🌍
 
-A lightweight JavaScript package to convert a UTC date string to a local timezone format with customizable date/time patterns. Whether you need to display dates in a specific timezone or want flexible date formatting, this package has you covered.
+# 🌍 utc-to-local-timezone
 
-## Features 🎯
-- Convert UTC time to local time based on a specified timezone 🕒
-- Customizable date and time formats (12h/24h, with or without slashes) 📅
-- Support for a wide range of locales 🌏
-- Supports various timezone and locale options 🌍
+A lightweight, zero-dependency JavaScript package to convert a UTC date string to a local timezone format with customizable date/time patterns. Whether you need to display dates in a specific timezone, support multilingual locales like Hindi with native numerals and AM/PM translations, or format time in 12h/24h — this package’s got you covered!
 
-## Installation 💻
+---
 
-You can install the package via npm:
+## ✨ Features
+
+- 🔁 Convert UTC time to local time based on a specified timezone
+- 🕒 Customizable date and time formats (12h/24h, slashes, or text)
+- 🌐 Wide range of locales supported — including `hi-IN` (Hindi)
+- 🔡 Hindi output with native digits like `११ अगस्त, २०२५, ५:३० अपराह्न`
+- 📦 Both CommonJS (`require`) and ES Module (`import`) compatible
+- 🪶 Clean, lightweight, and no external dependencies
+
+---
+
+## 📦 Installation
 
 ```bash
 npm install utc-to-local-timezone
 ```
 
-Alternatively, if you're using the script directly in the browser, you can include the `index.js` file as a `<script>` tag.
+---
 
-## Usage 📑
+## 📥 Import Instructions
 
-Import the package in your JavaScript code:
+### CommonJS (Node.js)
 
-```javascript
+```js
 const utcToLocalTimezone = require('utc-to-local-timezone');
 ```
 
+### ES Module
+
+```js
+import utcToLocalTimezone from 'utc-to-local-timezone';
+```
+
+✅ Both formats are fully supported.
+
+---
+
+## 📑 Usage
+
 ### Function: `utcToLocalTimezone`
 
-This function converts a UTC date string into the local timezone and formats it according to the specified pattern.
+Converts a UTC date string to local time according to your locale, timezone, and preferred pattern.
 
-### Parameters:
+### Parameters
 
-- `utcDateString` (string): The UTC date string to convert (e.g., `"2025-05-11T12:00:00Z"`).
-- `optionsData` (object, optional): Options to customize the output format:
-  - `locale` (string, optional): The locale to use (default: `"en-US"`).
-  - `timezone` (string, optional): The timezone to use (default: `"Asia/Kolkata"`).
-  - `patternType` (string, optional): The pattern to format the date and time (default: `"datetime-12h-text"`).
+| Parameter      | Type     | Description                                                                 | Default                       |
+|----------------|----------|-----------------------------------------------------------------------------|-------------------------------|
+| `utcDateString`| `string` | The UTC date string to convert (optional — uses current UTC time if omitted) | `new Date().toISOString()`   |
+| `optionsData`  | `object` | Options to customize the output format                                      | `{}`                          |
 
-### Pattern Types (Format) 📅:
-- `"date-slash"`: Only date in `DD/MM/YYYY` (e.g., `11/05/2025`).
-- `"date-text"`: Only date in `Month DD, YYYY` (e.g., `May 11, 2025`).
-- `"datetime-12h-slash"`: Date and time (12h) with slashes (e.g., `11/05/2025, 5:30 PM`).
-- `"datetime-12h-text"`: Date and time (12h) with text date (e.g., `May 11, 2025, 5:30 PM`).
-- `"datetime-24h-slash"`: Date and time (24h) with slashes (e.g., `11/05/2025, 17:30`).
-- `"datetime-24h-text"`: Date and time (24h) with text date (e.g., `May 11, 2025, 17:30`).
+### `optionsData` keys:
 
-### Example Usage:
+- `locale` (`string`) — Locale to use *(default: `"en-US"`)*  
+- `timezone` (`string`) — Timezone to convert into *(default: `"Asia/Kolkata"`)*  
+- `patternType` (`string`) — Date-Time pattern format *(default: `"datetime-12h-text"`)*  
 
-#### 1. Basic Usage (Default)
-```javascript
+---
+
+## 🔧 Example Usage
+
+### 1️⃣ Basic Usage (Current Time, Default Locale & Timezone)
+
+```js
+console.log(utcToLocalTimezone());
+// Example Output (Asia/Kolkata): "May 11, 2025, 5:30 PM"
+```
+
+---
+
+### 2️⃣ Specific UTC Date, Custom Format & Locale
+
+```js
 const utcDate = "2025-05-11T12:00:00Z";
 const options = {
-  locale: "en-US",           // Locale (default is en-US)
-  timezone: "Asia/Kolkata",  // Timezone (default is Asia/Kolkata)
-  patternType: "datetime-12h-text" // Date-Time format (default is "datetime-12h-text")
+  locale: "hi-IN",
+  timezone: "Asia/Kolkata",
+  patternType: "datetime-12h-text"
 };
 
 console.log(utcToLocalTimezone(utcDate, options));
-// Output: "May 11, 2025, 5:30 PM"
+// Output: "११ मई, २०२५, ५:३० अपराह्न"
 ```
 
-#### 2. Customizing the Date Format
-```javascript
-const utcDate = "2025-05-11T12:00:00Z";
-const options = {
-  locale: "en-GB",            // Locale in English (United Kingdom)
-  timezone: "Europe/London"   // Timezone (London)
-  patternType: "date-slash",  // Only date in DD/MM/YYYY
-};
+---
 
-console.log(utcToLocalTimezone(utcDate, options));
-// Output: "11/05/2025"
+### 3️⃣ 24-hour Format Example
+
+```js
+console.log(utcToLocalTimezone("2025-05-11T12:00:00Z", {
+  locale: "en-US",
+  timezone: "Asia/Kolkata",
+  patternType: "datetime-24h-text"
+}));
+// Output: "May 11, 2025, 17:30"
 ```
 
-#### 3. 24-hour Format Example
-```javascript
-const utcDate = "2025-05-11T12:00:00Z";
-const options = {
-  locale: "fr-FR",                    // Locale in French (France)
-  timezone: "Europe/Paris"            // Timezone (Paris)
-  patternType: "datetime-24h-slash",  // Date and time (24h) with slashes
-};
+---
 
-console.log(utcToLocalTimezone(utcDate, options));
-// Output: "11/05/2025, 17:30"
-```
+## 📊 Example Outputs
 
+| Locale  | Pattern             | Output                            |
+|---------|---------------------|-----------------------------------|
+| en-US   | datetime-12h-text   | August 11, 2025, 5:30 PM          |
+| en-US   | datetime-24h-text   | August 11, 2025, 17:30            |
+| hi-IN   | datetime-12h-text   | ११ अगस्त, २०२५, ५:३० अपराह्न     |
+
+---
+## Available Pattern Types
+
+| Pattern  Type      | Output            |
+|--------- |---------------------|
+| date-slash   | 11/05/2025   |
+| date-text   | August 11, 2025   |
+| datetime-12h-slash   | 11/05/2025, 5:30 PM   |
+|datetime-12h-text |    August 11, 2025, 5:30 PM |
+|datetime-24h-slash	|   11/05/2025, 17:30 |
+|datetime-24h-text	|   August 11, 2025, 17:30 |
+
+
+
+---
 ## Locales 🌍
 
 **Hindi**
@@ -168,6 +207,8 @@ console.log(utcToLocalTimezone(utcDate, options));
     sv-SE (Swedish, Sweden)
     tr-TR (Turkish, Turkey)
 
+---
+
 ## Timezones (IANA Timezone Database) 🌍
 
 **Asia**
@@ -219,33 +260,15 @@ console.log(utcToLocalTimezone(utcDate, options));
     Pacific/Tongatapu (Tonga Time, Tonga)
 
 
-## Example Outputs 📊
+---
 
-Here are a few examples of how the function formats the UTC date string:
+## 🤝 Contributing
 
-1. **Pattern Type: `date-slash`**
-   ```javascript
-   utcToLocalTimezone("2025-05-11T12:00:00Z", { patternType: "date-slash", locale: "en-US", timezone: "Asia/Kolkata" });
-   // Output: "11/05/2025"
-   ```
+Found a bug, or want to add a new pattern?  
+Feel free to open an issue or PR — **contributions welcome!** 🚀
 
-2. **Pattern Type: `datetime-12h-text`**
-   ```javascript
-   utcToLocalTimezone("2025-05-11T12:00:00Z", { patternType: "datetime-12h-text", locale: "en-US", timezone: "Asia/Kolkata" });
-   // Output: "May 11, 2025, 5:30 PM"
-   ```
+---
 
-3. **Pattern Type: `datetime-24h-slash`**
-   ```javascript
-   utcToLocalTimezone("2025-05-11T12:00:00Z", { patternType: "datetime-24h-slash", locale: "fr-FR", timezone: "Europe/Paris" });
-   // Output: "11/05/2025, 17:30"
-   ```
+## 📄 License
 
-## Contributing 🤝
-
-If you'd like to contribute, feel free to open an issue or a pull request. Your contributions are always welcome!
-
-## License ⚖️
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-```
+MIT License — see the [LICENSE](./LICENSE) file for details.
